@@ -1,0 +1,29 @@
+---
+import {Picture} from "@astrojs/image/components";
+import me from '@assets/hero.png'
+---
+
+<div class="flex min-h-screen h-full">
+  <aside class="flex flex-initial w-72 flex-col items-center py-10">
+    <a href="/" class="text-lg mb-10"
+    ><span class="font-bold text-slate-800">Astro</span><span
+      class="text-slate-500">ship</span
+    >
+    </a>
+    <Picture
+      src={me}
+      alt="Image of the author"
+      sizes="(max-width: 500px) 100vw, 220px"
+      widths={[200, 220]}
+      aspectRatio="1:1"
+      background="#ffffff"
+      fit="cover"
+      position="center"
+      class="rounded-full transition group-hover:-translate-y-1 group-hover:shadow-xl"
+    />
+  </aside>
+  <div class="grow">
+    <slot />
+  </div>
+</div>
+

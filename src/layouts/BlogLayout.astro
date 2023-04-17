@@ -1,0 +1,76 @@
+---
+import Container from "@components/container.astro";
+import {getFormattedDate} from "@utils/all";
+import Footer from "@components/footer.astro";
+import Navbar from "@components/navbar/navbar.astro";
+import "@fontsource/inter/variable.css";
+import {SEO} from "astro-seo";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const resolvedImageWithDomain = new URL(
+  "/opengraph.jpg",
+  Astro.site
+).toString();
+
+const {frontmatter} = Astro.props;
+
+const makeTitle = frontmatter.title
+  ? frontmatter.title + " | " + "Astroship"
+  : "Astroship - Starter Template for Astro with Tailwind CSS";
+---
+
+<html>
+<head>
+  <title>{makeTitle}</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width"/>
+  <meta name="description" content="Astroship is a starter website template for Astro built with TailwindCSS."/>
+  <meta name="canonical" content={canonicalURL}>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <meta name="generator" content={Astro.generator}/>
+
+  <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
+  <SEO
+    title={makeTitle}
+    description="Astroship is a starter website template for Astro built with TailwindCSS."
+    canonical={canonicalURL}
+    twitter={{
+      creator: "@surjithctly",
+      site: "@web3templates",
+      card: "summary_large_image",
+    }}
+    openGraph={{
+      basic: {
+        url: canonicalURL,
+        type: "website",
+        title: `Astroship - Starter Template for Astro`,
+        image: resolvedImageWithDomain,
+      },
+      image: {
+        alt: "Astroship Homepage Screenshot",
+      },
+    }}
+  />
+</head>
+<div class="bg-gray-50 min-h-screen">
+  <Navbar/>
+  <slot/>
+
+  <Footer/>
+</div>
+
+</html>
+
+<style>
+    html {
+        height: 100%;
+    }
+    /* Improve Page speed */
+    /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+    img {
+        content-visibility: auto;
+    }
+</style>
+
+

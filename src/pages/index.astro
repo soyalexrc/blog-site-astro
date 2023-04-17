@@ -1,0 +1,115 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Features from "@components/features.astro";
+import Hero from "@components/hero.astro";
+import Logos from "@components/logos.astro";
+import Layout from "@layouts/Layout.astro";
+import {getCollection} from "astro:content";
+import {Picture} from "@astrojs/image/components";
+
+const publishedBlogEntries = await getCollection("blog", ({ data }) => {
+	return !data.draft && data.publishDate < new Date();
+});
+
+// Sort content entries by publication date
+publishedBlogEntries.sort(function (a, b) {
+	return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+});
+
+---
+
+<Layout title="">
+	<Container>
+		<div class="bg-red-100">
+			categories
+		</div>
+		<div class="container grid m-auto grid-cols-12 py-5">
+			<div class="col-span-12 md:col-span-8">
+				<h1  class="text-3xl font-semibold leading-snug tracking-tight mb-4 "> Latest articles</h1>
+				{
+					publishedBlogEntries.map((blogPostEntry, index) => (
+						<div class="mb-6">
+							<a href={`/blog/${blogPostEntry.slug}`}>
+								<div class="flex items-center">
+									<Picture
+										src={blogPostEntry.data.image.src}
+										alt={blogPostEntry.data.image.alt}
+										sizes="(max-width: 200px) 100vw, 150px"
+										widths={[200, 400, 800]}
+										aspectRatio="16:9"
+										background="#ffffff"
+										fit="cover"
+										position="center"
+										loading={index <= 2 ? "eager" : "lazy"}
+										decoding={index <= 2 ? "sync" : "async"}
+										class=" rounded-md "
+									/>
+									<div class="mx-3">
+                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
+                      {blogPostEntry.data.category}
+                    </span>
+
+										<h2 class="text-2xl font-semibold leading-snug tracking-tight mt-1 ">
+											{blogPostEntry.data.title}
+										</h2>
+
+										<div class="flex gap-2 mt-3">
+                      <span class="text-gray-400">
+                        {blogPostEntry.data.author}
+                      </span>
+											<span class="text-gray-400">• </span>
+											<time
+												class="text-gray-400"
+												datetime={blogPostEntry.data.publishDate.toISOString()}>
+												{blogPostEntry.data.publishDate.toDateString()}
+											</time>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					))
+				}
+			</div>
+			<div class="col-span-12 md:col-span-4">
+			<!-- latest video-->
+				<h2 class="text-3xl font-semibold leading-snug tracking-tight mb-4 ">
+					Latest video
+				</h2>
+				<Picture
+					src="https://images.unsplash.com/photo-1614332287897-cdc485fa562d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+					alt="latest video coming soon"
+					sizes="(max-width: 400px) 100vw, 400px"
+					widths={[200, 400, 800]}
+					aspectRatio="16:9"
+					background="#ffffff"
+					fit="cover"
+					position="center"
+					loading="eager"
+					decoding="sync"
+					class="rounded-xl mb-10 filter grayscale blur-xs cursor-not-allowed"
+				/>
+
+				<!-- latest course-->
+				<h2 class="text-3xl font-semibold leading-snug tracking-tight mb-4 ">
+					Latest course
+				</h2>
+				<Picture
+					src="https://images.unsplash.com/photo-1614332287897-cdc485fa562d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+					alt="latest video coming soon"
+					sizes="(max-width: 400px) 100vw, 400px"
+					widths={[200, 400, 800]}
+					aspectRatio="16:9"
+					background="#ffffff"
+					fit="cover"
+					position="center"
+					loading="eager"
+					decoding="sync"
+					class="rounded-xl mb-10 filter grayscale blur-xs cursor-not-allowed"
+				/>
+
+			</div>
+		</div>
+	</Container>
+</Layout>

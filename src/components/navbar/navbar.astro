@@ -1,0 +1,81 @@
+---
+import Container from "@components/container.astro";
+import {Icon} from 'astro-icon'
+import Link from "@components/ui/link.astro";
+import Dropdown from "./dropdown.astro";
+import {Astronav, MenuItems, MenuIcon} from "astro-navbar";
+
+const menuitems = [
+  {
+    title: "Features",
+    path: "#",
+    children: [
+      {title: "Action", path: "/"},
+      {title: "Another action", path: "#"},
+      {title: "Dropdown Submenu", path: "#"},
+      {title: "404 Page", path: "/404"},
+    ],
+  },
+  {
+    title: "Pricing",
+    path: "/pricing",
+  },
+  {
+    title: "About",
+    path: "/about",
+  },
+  {
+    title: "Blog",
+    path: "/blog",
+  },
+  {
+    title: "Contact",
+    path: "/contact",
+  },
+];
+---
+
+<Container>
+  <header class="pt-5 flex">
+    <form class="flex-initial w-full">
+      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+      <div class="relative">
+        <div class="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
+          <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <input type="search" id="default-search"
+               class="block w-full p-4 pl-5 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-transparent focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+               placeholder="Search..." required>
+      </div>
+    </form>
+    <div class="flex gap-2 mx-4">
+      <Icon pack="mdi" name="instagram" class="ig"/>
+      <Icon pack="mdi" name="github"/>
+      <Icon pack="mdi" name="youtube" class="yt"/>
+      <Icon pack="mdi" name="spotify" class="sp"/>
+    </div>
+  </header>
+</Container>
+
+<style lang="css">
+    [astro-icon] {
+        width: 40px;
+    }
+
+    .yt {
+        color: red
+    }
+    .sp {
+        color: green
+    }
+
+    .ig {
+        color: #E1306C
+    }
+
+</style>
+
